@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tichete") // Numele tabelei în SQLite
-public class Ticket {
+@Table(name = "Sesizare") // Numele tabelei în SQLite
+public class Sesizare {
 
     @Id // Marchează acest câmp ca Primary Key (Cheie primară)
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Face AUTOINCREMENT automat
@@ -24,12 +24,24 @@ public class Ticket {
 
     private LocalDateTime dataCreare;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User utilizator;
+
+    public User getUtilizator() {
+        return utilizator;
+    }
+
+    public void setUtilizator(User utilizator) {
+        this.utilizator = utilizator;
+    }
+
     // JPA/Hibernate are nevoie OBLIGATORIU de un constructor gol pentru a putea instanția obiectele din baza de date
-    public Ticket() {
+    public Sesizare() {
     }
 
     // Constructorul tău pentru când creezi un tichet nou din cod
-    public Ticket(String categorie, String descriere, String locatie) {
+    public Sesizare(String categorie, String descriere, String locatie) {
         this.categorie = categorie;
         this.descriere = descriere;
         this.locatie = locatie;
