@@ -15,8 +15,12 @@ public class User {
     @Column(nullable = false)
     private String prenume;
 
-    @Column(nullable = false)
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
+    private String telefon;
+
 
     @Column(nullable = false)
     private String password;
@@ -70,6 +74,12 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+    public String getTelefon() {
+        return telefon;
+    }
+    public void setTelefon(String telefon) {
+        this.telefon = telefon;
     }
     public User() {
     }
