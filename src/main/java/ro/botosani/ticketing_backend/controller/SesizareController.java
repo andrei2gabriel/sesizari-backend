@@ -34,7 +34,13 @@ public class SesizareController {
     // Această rută se va apela la un POST request pe URL-ul http://localhost:8080/api/tichete
     // @RequestBody transformă JSON-ul trimis de pe web direct într-un obiect de tip Sesizare
     @PostMapping
-    public Sesizare creazaSesizare(@RequestBody Sesizare sesizare) {
+    public Sesizare creazaSesizare(@RequestBody Sesizare sesizare, @RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.substring(7);
+        String identificator;
+        identificator=jwtUtil.extractIdentificator(token);
+        User u=userService.findByEmailOrTelefon(identificator);
+        Long id=u.getId();
+        sesizare.setUtilizator(u);
         return SesizareService.salveazaSesizareNoua(sesizare);
     }
 
