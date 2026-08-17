@@ -2,6 +2,7 @@ package ro.botosani.ticketing_backend.service;
 
 import org.springframework.stereotype.Service;
 import ro.botosani.ticketing_backend.model.Sesizare;
+import ro.botosani.ticketing_backend.model.User;
 import ro.botosani.ticketing_backend.repository.SesizareRepository;
 import java.util.List;
 
@@ -29,4 +30,10 @@ public class SesizareService {
         Sesizare sesizare = SesizareRepository.findById(id).orElseThrow();
         SesizareRepository.delete(sesizare);
     }
+
+
+    public List<Sesizare> getSesizariByUser(Long id) {
+        return SesizareRepository.findByUtilizatorId(id);
+    }
+
 }

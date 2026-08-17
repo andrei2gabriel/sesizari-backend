@@ -22,17 +22,14 @@ public class User {
     private String telefon;
 
 
-    @Column(nullable = false)
-    private String password;
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", nume='" + nume + '\'' +
                 ", prenume='" + prenume + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                ", email='" + email + '\''+
+                ", telefon='" + telefon + '\'' +
                 '}';
     }
 
@@ -52,10 +49,6 @@ public class User {
         this.email = email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Long getId() {
         return id;
     }
@@ -72,9 +65,6 @@ public class User {
         return email;
     }
 
-    public String getPassword() {
-        return password;
-    }
     public String getTelefon() {
         return telefon;
     }
@@ -88,6 +78,5 @@ public class User {
         this.nume = nume;
         this.prenume = prenume;
         this.email = email;
-        this.password = password;
     }
 }

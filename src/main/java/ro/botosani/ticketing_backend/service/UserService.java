@@ -1,60 +1,47 @@
 package ro.botosani.ticketing_backend.service;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ro.botosani.ticketing_backend.dto.AccesRequest;
 import ro.botosani.ticketing_backend.model.User;
 import ro.botosani.ticketing_backend.repository.UserRepository;
 
-import java.util.List;
-
 @Service
-public class UserService
-{
+public class UserService {
+
     private final UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+    public User proceseazaAcces(AccesRequest cerere) {
+        // Căutăm dacă cetățeanul există deja
+        User rezultat = userRepository.findByEmailOrTelefon(cerere.getIdentificator(), cerere.getIdentificator());
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
+        if (rezultat != null) {
+            return rezultat;
+        }
 
-    public User registerUser(User user) {
-        if(user.getEmail()==null || user.getTelefon()==null)
+        // Nu există, îl creăm acum
+        User noulUser = new User();
+        noulUser.setNume(cerere.getNume());
+        noulUser.setPrenume(cerere.getPrenume());
+        if (cerere.getIdentificator().contains("@"))
         {
-            throw new IllegalArgumentException("Trebuie introdus un email si un telefon.");
+            // Salvăm numărul sau adresa aici
+            noulUser.setEmail(cerere.getIdentificator());
         }
-        else {
-            String password = user.getPassword();
-            user.setPassword(passwordEncoder.encode(password));
-            return userRepository.save(user);
+        else
+        {
+            noulUser.setTelefon(cerere.getIdentificator());
         }
+
+        return userRepository.save(noulUser);
     }
 
-    public User loginUser(String identificator, String password) {
-        User rezultat=userRepository.findByEmailOrTelefon(identificator, identificator);
-        if(rezultat==null)
-        {
-            throw new RuntimeException("Cont inexistent.");
-        }
-        else {
-            String passwordCripted = rezultat.getPassword();
-            if (passwordEncoder.matches(password, passwordCripted)) {
-                return rezultat;
-            }
-            else {
-                throw new RuntimeException("Parola incorecta.");
-            }
-        }
+    public User findByEmailOrTelefon(String identificator) {
+            return userRepository.findByEmailOrTelefon(identificator, identificator);
     }
-    public void deleteUser(Long id) {
-        User user = userRepository.findById(id).orElseThrow();
-        userRepository.delete(user);
-    }
+
+
 }

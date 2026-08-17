@@ -1,5 +1,6 @@
 package ro.botosani.ticketing_backend.model; // Asigură-te că pachetul corespunde cu al tău
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -26,6 +27,7 @@ public class Sesizare {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User utilizator;
 
     public User getUtilizator() {
