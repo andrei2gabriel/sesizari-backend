@@ -21,9 +21,32 @@ public class Sesizare {
     @Column(nullable = false)
     private String stare; // Nou, In lucru, Rezolvat
 
-    private String locatie; // Poate fi null, deci nu punem @Column restrictiv
+    private String adresa; // Poate fi null, deci nu punem @Column restrictiv
 
     private LocalDateTime dataCreare;
+
+    private Double latitudine;
+    private Double longitudine;
+
+    public Double getLatitudine() {
+        return latitudine;
+    }
+
+    public void setLatitudine(Double latitudine) {
+        this.latitudine = latitudine;
+    }
+
+    public Double getLongitudine() {
+        return longitudine;
+    }
+
+    public void setLongitudine(Double longitudine) {
+        this.longitudine = longitudine;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -43,10 +66,10 @@ public class Sesizare {
     }
 
     // Constructorul tău pentru când creezi un tichet nou din cod
-    public Sesizare(String categorie, String descriere, String locatie) {
+    public Sesizare(String categorie, String descriere, String adresa) {
         this.categorie = categorie;
         this.descriere = descriere;
-        this.locatie = locatie;
+        this.adresa = adresa;
         this.stare = "Nou"; // Default
         this.dataCreare = LocalDateTime.now(); // Ora curentă a serverului
     }
@@ -65,8 +88,8 @@ public class Sesizare {
     public String getStare() { return stare; }
     public void setStare(String stare) { this.stare = stare; }
 
-    public String getLocatie() { return locatie; }
-    public void setLocatie(String locatie) { this.locatie = locatie; }
+    public String getAdresa() { return adresa; }
+    public void setAdresa(String adresa) { this.adresa = adresa; }
 
     public LocalDateTime getDataCreare() { return dataCreare; }
     public void setDataCreare(LocalDateTime dataCreare) { this.dataCreare = dataCreare; }
