@@ -1,8 +1,11 @@
 package ro.botosani.ticketing_backend.model; // Asigură-te că pachetul corespunde cu al tău
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Sesizare") // Numele tabelei în SQLite
@@ -50,7 +53,7 @@ public class Sesizare {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
+    @JsonIgnoreProperties({"sesizari", "hibernateLazyInitializer", "handler"})
     private User utilizator;
 
     public User getUtilizator() {
@@ -61,6 +64,30 @@ public class Sesizare {
         this.utilizator = utilizator;
     }
 
+    @ElementCollection
+    @CollectionTable(name = "imagini_sesizare", joinColumns = @JoinColumn(name = "sesizare_id"))
+    @Column(name = "cale_imagine")
+    private List<String> caiImagini = new ArrayList<>();
+
+    public List<String> getCaiImagini() {
+        return caiImagini;
+    }
+
+    @Column(length = 1000) // Permitem un text mai lung pentru explicații detaliate
+    private String mesajDispecer;
+
+    // Generăm getter și setter la finalul clasei
+    public String getMesajDispecer() {
+        return mesajDispecer;
+    }
+
+    public void setMesajDispecer(String mesajDispecer) {
+        this.mesajDispecer = mesajDispecer;
+    }
+
+    public void setCaiImagini(List<String> caiImagini) {
+        this.caiImagini = caiImagini;
+    }
     // JPA/Hibernate are nevoie OBLIGATORIU de un constructor gol pentru a putea instanția obiectele din baza de date
     public Sesizare() {
     }
