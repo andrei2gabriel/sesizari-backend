@@ -43,5 +43,10 @@ public class UserService {
             return userRepository.findByEmailOrTelefon(identificator, identificator);
     }
 
+    public User findByEmail(String email)
+    {
+        return userRepository.findByEmail(email);
+    }
+
 
 }

@@ -3,7 +3,7 @@ package ro.botosani.ticketing_backend.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "app_users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,17 @@ public class User {
 
     @Column(unique = true)
     private String telefon;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Column(nullable = true, name= "parola")
+    private String password;
 
     @Column(nullable = false)
     private String rol = "CETATEAN";
