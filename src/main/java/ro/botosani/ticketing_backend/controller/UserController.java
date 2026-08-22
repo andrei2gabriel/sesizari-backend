@@ -10,7 +10,7 @@ import ro.botosani.ticketing_backend.service.UserService;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;

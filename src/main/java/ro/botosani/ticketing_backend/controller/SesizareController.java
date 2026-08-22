@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/sesizari")
+@RequestMapping("/sesizari")
 public class SesizareController {
 
     private final SesizareService sesizareService;
