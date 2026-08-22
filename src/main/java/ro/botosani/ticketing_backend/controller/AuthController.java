@@ -43,9 +43,10 @@ public class AuthController {
         // Suprascriem cookie-ul existent cu unul gol și maxAge(0) pentru a-l șterge instant
         ResponseCookie cookie = ResponseCookie.from("jwtToken", "")
                 .httpOnly(true)
-                .secure(false)
+                .secure(true)
                 .path("/")
                 .maxAge(0)
+                .sameSite("None")
                 .build();
 
         return ResponseEntity.ok()
