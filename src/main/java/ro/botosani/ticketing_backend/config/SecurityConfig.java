@@ -38,13 +38,11 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        // 1. Deblocăm cererile de rețea invizibile ale browserului (foarte important)
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        // 2. Deblocăm logarea
-                        .requestMatchers("/api/auth/admin-login", "/api/auth/acces", "/api/auth/logout").permitAll()
+                        // Rutele corectate pentru a corespunde apelurilor din React
+                        .requestMatchers("/auth/admin-login", "/auth/acces", "/auth/logout").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
-                        .requestMatchers("/error").permitAll() // <-- Adaugă această linie
-                        // 3. Protejăm sesizările
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
