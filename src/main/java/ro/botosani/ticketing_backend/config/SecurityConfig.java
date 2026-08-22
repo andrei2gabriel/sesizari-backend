@@ -61,7 +61,9 @@ public class SecurityConfig {
                 "http://localhost:5173",
                 "http://192.168.1.151:5173",
                 "http://localhost:5174",
-                "http://192.168.1.151:5174"
+                "http://192.168.1.151:5174",
+                "https://sesizari-frontend.vercel.app", // aplicația cetățenilor
+                "https://dispecerat-sesizari-botosani.vercel.app"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS","PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
