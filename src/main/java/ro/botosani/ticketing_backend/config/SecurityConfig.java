@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         // Rutele corectate pentru a corespunde apelurilor din React
-                        .requestMatchers("/auth/admin-login", "/auth/acces", "/auth/logout").permitAll()
+                        .requestMatchers("/auth/admin-login", "/auth/acces", "/auth/logout","/auth/check").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
