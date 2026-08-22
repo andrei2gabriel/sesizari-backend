@@ -47,11 +47,15 @@ public class SesizareService {
         Sesizare salvata = SesizareRepository.save(sesizare);
 
         if (salvata.getUtilizator() != null) {
-            notificareService.notificaCetatean(salvata.getUtilizator(), salvata);
+            try {
+                notificareService.notificaCetatean(salvata.getUtilizator(), salvata);
+            } catch (Exception e) {
+                System.err.println("Eroare la trimiterea e-mailului: " + e.getMessage());
+            }
         }
+
         return salvata;
     }
-
     public List<Sesizare> getSesizariByUser(Long id) {
         return SesizareRepository.findByUtilizatorId(id);
     }
