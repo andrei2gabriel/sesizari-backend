@@ -49,6 +49,8 @@ public class AuthController {
                 .sameSite("None")
                 .build();
 
+
+
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body(Map.of("mesaj", "Deconectare reușită"));
@@ -106,7 +108,7 @@ public class AuthController {
                 .secure(true) // <- OBLIGATORIU: Browserul va trimite cookie-ul DOAR pe conexiuni HTTPS
                 .path("/")
                 .maxAge(24 * 60 * 60) // 1 zi
-                .sameSite("Strict") // <- PROTECȚIE CSRF MAXIMĂ: Cookie-ul pleacă doar dacă utilizatorul este efectiv pe site-ul tău
+                .sameSite("None") // <- PROTECȚIE CSRF MAXIMĂ: Cookie-ul pleacă doar dacă utilizatorul este efectiv pe site-ul tău
                 .build();
 
         return ResponseEntity.ok()
